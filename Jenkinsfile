@@ -19,22 +19,22 @@ pipeline {
                 checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/mshow1980/YouTube_skit.git']])
             }
         }
-        stage('SonarQube Alnalysis'){
-            steps {
-                script{
-                    withSonarQubeEnv('Sonarqube-server') {
-                    sh """
-                    $SCANNER_HOME/bin/sonar-scanner \
-                    -Dsonar.projectKey=YouTube-Skit \
-                    -Dsonar.sources=YouTube-Skit
-                    """
+            stage('SonarQube Alnalysis'){
+                steps {
+                    script{
+                        withSonarQubeEnv('Sonarqube-server') {
+                        sh """
+                        $SCANNER_HOME/bin/sonar-scanner \
+                        -Dsonar.projectKey=YouTube-Skit \
+                        -Dsonar.sources=YouTube-Skit
+                        """
+                        }
                     }
                 }
-            }
-            stage ('Sonar QualityGate'){
-                steps{
-                    script{
-                        waitForQualityGate abortPipeline: false, credentialsId: 'SOnar-Token'
+                stage ('Sonar QualityGate'){
+                    steps{
+                        script{
+                            waitForQualityGate abortPipeline: false, credentialsId: 'SOnar-Token'
                     }
                 }
             }
