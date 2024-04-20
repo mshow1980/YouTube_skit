@@ -1,13 +1,13 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: YouTube-Skitt-app
+  name: YouTube-Skit-app
   labels:
-    app: YouTube-Skitt-app
+    app: YouTube-Skit-app
 spec:
   type: LoadBalancer
   ports:
   - port: 80
     targetPort: 3000
   selector:
-    app: YouTube-Skitt-app
+    app: YouTube-Skit-app

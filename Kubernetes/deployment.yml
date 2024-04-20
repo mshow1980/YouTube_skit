@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: YouTube-Skitt-app
+  name: YouTube-Skit-app
   labels:
-    app: YouTube-Skitt-app
+    app: YouTube-Skit-app
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: YouTube-Skitt-app
+      app: YouTube-Skit-app
   template:
     metadata:
       labels:
-        app: YouTube-Skitt-app
+        app: YouTube-Skit-app
     spec:
       terminationGracePeriodSeconds: 30
       containers:
-      - name: YouTube-Skitt-app
-        image: mshow1980/YouTube-Skit:latest
+      - name: YouTube-Skit-app
+        image: mshow1980/YouTube-Skit-app:latest
         imagePullPolicy: "Always"
         ports:
         - containerPort: 3000
