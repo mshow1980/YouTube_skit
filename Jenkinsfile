@@ -18,16 +18,10 @@ pipeline {
                 checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/mshow1980/YouTube_skit.git']])
             }
         }
-        stage('SOnarQube Analysis') {
+        stage('installing Dependencies') {
             steps {
                 script{
-                    withSonarQubeEnv('SonarQube') {
-                        sh """
-                        $SCANNER_HOME/bin/sonar-scanner \
-                        -Dsonar.projectKey=YouTube-Skit \
-                        -Dsonar.sources=YouTube-Skit
-                        """
-                    }
+                    sh'npm install'
                 }
             }
         }
