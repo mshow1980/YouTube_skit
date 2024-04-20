@@ -1,40 +1,32 @@
-
 pipeline {
-    agent any 
-    tools{
-        jdk 'jdk17'
+    agent any
+    tools {
         nodejs 'node16'
+        jdk 'jdk17'
     }
-    environment{
+    environment {
         SCANNER_HOME = 'sonar-scanner'
     }
     stages {
-        stage('CleanWS'){
-            steps{
+        stage('CleanWS') {
+            steps {
                 cleanWs()
             }
         }
-        stage('Checkout SCM'){
+        stage('Checkout SCM') {
             steps {
                 checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/mshow1980/YouTube_skit.git']])
             }
         }
-            stage('SonarQube Alnalysis'){
-                steps {
-                    script{
-                        withSonarQubeEnv('Sonarqube-server') {
+        stage('SOnarQube Analysis') {
+            steps {
+                script{
+                    withSonarQubeEnv('Sonarqube-server') {
                         sh """
                         $SCANNER_HOME/bin/sonar-scanner \
                         -Dsonar.projectKey=YouTube-Skit \
                         -Dsonar.sources=YouTube-Skit
                         """
-                        }
-                    }
-                }
-                stage ('Sonar QualityGate'){
-                    steps{
-                        script{
-                            waitForQualityGate abortPipeline: false, credentialsId: 'SOnar-Token'
                     }
                 }
             }
