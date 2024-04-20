@@ -21,7 +21,7 @@ pipeline {
         stage('SOnarQube Analysis') {
             steps {
                 script{
-                    withSonarQubeEnv('Sonarqube-server') {
+                    withSonarQubeEnv('SonarQube') {
                         sh """
                         $SCANNER_HOME/bin/sonar-scanner \
                         -Dsonar.projectKey=YouTube-Skit \
