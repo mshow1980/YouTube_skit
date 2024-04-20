@@ -1,23 +1,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: youtube-clone-app
+  name: YouTube-Skitt-app
   labels:
-    app: youtube-clone-app
+    app: YouTube-Skitt-app
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: youtube-clone-app
+      app: YouTube-Skitt-app
   template:
     metadata:
       labels:
-        app: youtube-clone-app
+        app: YouTube-Skitt-app
     spec:
       terminationGracePeriodSeconds: 30
       containers:
-      - name: youtube-clone-app
-        image: ashfaque9x/youtube-clone:latest
+      - name: YouTube-Skitt-app
+        image: mshow1980/YouTube-Skit:latest
         imagePullPolicy: "Always"
         ports:
         - containerPort: 3000
