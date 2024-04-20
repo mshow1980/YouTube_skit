@@ -22,7 +22,8 @@ pipeline {
         stage('SonarQube Alnalysis'){
             steps {
                 withSonarQubeEnv(credentialsId: 'SOnar-Token') {
-                    sh """
+                    sh """ 
+                    $ SCANNER_HOME/bin/sonar-scanner \
                     -Dsonar.projectKey=YouTube-Skit \
                     -Dsonar.sources=YouTube-Skit
                     """
