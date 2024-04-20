@@ -21,13 +21,20 @@ pipeline {
         }
         stage('SonarQube Alnalysis'){
             steps {
-                srcipt{
+                script{
                     withSonarQubeEnv('Sonarqube-server') {
                     sh """
                     $SCANNER_HOME/bin/sonar-scanner \
                     -Dsonar.projectKey=YouTube-Skit \
                     -Dsonar.sources=YouTube-Skit
                     """
+                    }
+                }
+            }
+            stage ('Sonar QualityGate'){
+                steps{
+                    script{
+                        waitForQualityGate abortPipeline: false, credentialsId: 'SOnar-Token'
                     }
                 }
             }
