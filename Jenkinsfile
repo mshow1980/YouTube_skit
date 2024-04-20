@@ -5,7 +5,7 @@ pipeline {
         jdk 'jdk17'
     }
     environment {
-        SCANNER_HOME = 'sonar-scanner'
+        SCANNER_HOME = tool 'sonar-scanner'
     }
     stages {
         stage('CleanWS') {
