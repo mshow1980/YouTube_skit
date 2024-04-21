@@ -25,5 +25,12 @@ pipeline {
                 }
             }
         }
-    }
+        stage ('Sonarqube analysis'){
+            steps {
+                withSonarQubeEnv(credentialsId: 'SOnar-Token') {
+                    sh 'sonar-scanner'
+                    }
+                }
+            }
+        }
 }
