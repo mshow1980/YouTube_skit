@@ -29,7 +29,7 @@ pipeline {
             steps {
                 withSonarQubeEnv('SonarQube') {
                     sh """
-                        sonar-scanner \
+                        $SCANNER_HOME/bin/sonar-scanner 
                         -Dsonar.projectKey=YouTube-Skit \
                         -Dsonar.sources=. \
                         -Dsonar.host.url=http://3.237.37.43:9000 \
