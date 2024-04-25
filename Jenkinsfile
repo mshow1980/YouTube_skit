@@ -27,13 +27,7 @@ pipeline {
         }
         stage ('Sonarqube analysis'){
             steps {
-                    sh """
-                        $SCANNER_HOME/bin/sonar-scanner 
-                        -Dsonar.projectKey=YouTube-Skit \
-                        -Dsonar.sources=. \
-                        -Dsonar.host.url=http://3.237.37.43:9000 \
-                        -Dsonar.login=sqp_3e3fdfbdacea41f92bcdb7cbfc690940c413537e
-                    """
+                sh' npm sonar '
                 }
             }
         }
