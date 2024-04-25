@@ -52,7 +52,7 @@ pipeline {
         stage('TRIVY FS SCAN'){
             steps{
                 script{
-                    sh “trivy fs . > codescan.txt” 
+                    sh “trivy fs . ” 
                 }
             }
         }
