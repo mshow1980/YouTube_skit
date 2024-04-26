@@ -27,7 +27,9 @@ pipeline {
         }
         stage ('Sonarqube analysis'){
             steps {
-                sh "npm run sonar"
+                withSonarQubeEnv(credentialsId: 'SOnar-Token') {
+                    sh "npm run sonar"
+                }
                 }
             }
         stage('SOnar Quality-gate'){
@@ -52,7 +54,7 @@ pipeline {
         stage('TRIVY FS SCAN'){
             steps{
                 script{
-                    sh “trivy fs . ” 
+                    sh “trivy fs . > trivyfs.txt” 
                 }
             }
         }
