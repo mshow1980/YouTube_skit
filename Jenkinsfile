@@ -29,7 +29,7 @@ pipeline {
             steps {
                 nodejs(nodeJSInstallationName: '$nodejs') {
                     waitForQualityGate abortPipeline: false, credentialsId: 'SOnar-Token'
-                    sh " npm sonar"
+                    sh " npm run sonar"
                     }
                 }
             }
