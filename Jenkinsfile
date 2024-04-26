@@ -27,11 +27,13 @@ pipeline {
         }
         stage ('Sonarqube analysis'){
             steps {
+                nodejs(nodeJSInstallationName: '$nodejs') {
                 withSonarQubeEnv(credentialsId: 'SOnar-Token') {
                     sh "npm run sonar"
-                }
+                    }
                 }
             }
+        }
         stage('SOnar Quality-gate'){
             steps{
                 script{
@@ -54,7 +56,7 @@ pipeline {
         stage('TRIVY FS SCAN'){
             steps{
                 script{
-                    sh “trivy fs . ” 
+                    sh “trivy fs .” 
                 }
             }
         }
