@@ -11,9 +11,9 @@ sonarqubeScanner({
 	    'sonar.password': 'YWRtaW4=',
             'sonar.projectVersion':'1.0',
 	    'sonar.language':'js',
-            'sonar.sourceEncoding':'UTF-8',
+            //'sonar.sourceEncoding':'UTF-8',
             'sonar.sources': '.',
 	  //'sonar.tests': 'specs',
-          //'sonar.inclusions' : 'src/**'
+          'sonar.inclusions' : 'src/**'
        },
 }, () => {});
