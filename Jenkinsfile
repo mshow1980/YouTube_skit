@@ -80,5 +80,14 @@ pipeline {
                 }
             }
         }
+        stage ('Delete docker image') {
+            steps {
+                script {
+                    sh """
+                    docker rmi ${IMAGE_NAME}
+                    """
+                }
+            }
+        }
     }
 }
