@@ -57,19 +57,21 @@ pipeline {
         stage('TRIVY FS SCAN'){
             steps{
                 script{
-                    sh “ trivy fs . ” 
+                    sh “ trivy fs. ” 
                 }
             }
         }
         stage ('Building image') {
             steps {
+                script{
                 withDockerRegistry(credentialsId: 'DOcker-Login', url: 'https://hub.docker.com') {
-                sh"""  
                     docker_image = docker.build "${IMAGE_NAME}"
-                    docker_tag = docker_image("${ IMAGE_TAG}")
-                    
-                    """
                 }
+                withDockerRegistry(credentialsId: 'DOcker-Login', url: 'https://hub.docker.com') {
+                    docker_image.push("${IMAGE_TAG}")
+                    docker_image.push("${latest}")                    
+                    }
+                }    
             }
         }
     }
