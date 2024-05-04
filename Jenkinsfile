@@ -76,7 +76,7 @@ pipeline {
         stage('TRIVY Image SCAN'){
             steps{
                 script{
-                    sh 'trivy image -s ("${IMAGE_NAME}"+"${IMAGE_TAG}") '
+                    sh 'trivy image -s mshow1980/youtube_skit:latest '
                 }
             }
         }
