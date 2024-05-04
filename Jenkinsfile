@@ -34,7 +34,7 @@ pipeline {
             }
         }
         stage ('Sonarqube analysis'){
-            steps {
+            //steps {
                 script {
                     sh """
                     npm install sonar-scanner
@@ -44,7 +44,7 @@ pipeline {
                 }
             }
         stage ('OWASP Dependency-Check Vulnerabilities') {
-            steps {
+            //steps {
                 script{
                 dependencyCheck additionalArguments: ''' 
                     -o "./" 
@@ -56,12 +56,12 @@ pipeline {
             }
         }
         stage('TRIVY FS SCAN'){
-            steps{
+            //steps{
                 script{
                     sh 'trivy fs . > trivyfile.html'
                 }
             }
-        }
+        //}
         stage ('Building  Push Image') {
             steps {
                 script{
@@ -73,9 +73,9 @@ pipeline {
                 }    
             }
         }
-        stage('TRIVY Image SCAN'){
+        stage("TRIVY Image SCAN"){
             steps{
-                    sh 'trivy mshow1980/youtube_skit:latest '
+                    sh "trivy image mshow1980/youtube_skit:latest > trivy-image.txt "
                 }
             }
         stage ('Delete docker image') {
@@ -87,5 +87,5 @@ pipeline {
                 }
             }
         }
-    }
-}
+    //}
+//}
