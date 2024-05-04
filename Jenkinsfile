@@ -75,11 +75,9 @@ pipeline {
         }
         stage('TRIVY Image SCAN'){
             steps{
-                script{
                     sh 'trivy mshow1980/youtube_skit:latest '
                 }
             }
-        }
         stage ('Delete docker image') {
             steps {
                 script {
