@@ -29,7 +29,10 @@ pipeline {
         stage ('Sonarqube analysis'){
             steps {
                 script {
-                    sh " npm run sonar "
+                    sh """
+                    npm install sonar-scanner
+                    npm run sonar 
+                    """
                 }
                 }
             }
