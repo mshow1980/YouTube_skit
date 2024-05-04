@@ -11,6 +11,7 @@ pipeline {
         IMAGE_NAME = "${ DOCKER_USERNAME}"+"/"+"${APP_NAME}"
         RELEASE = "1.0"
         IMAGE_TAG = "${RELEASE}"+"${BUILD_NUMBER}"
+        REGISTRY_CREDS = 'DOcker-Login'
 
     }
     stages {
@@ -57,21 +58,28 @@ pipeline {
         stage('TRIVY FS SCAN'){
             steps{
                 script{
-                    sh 'trivy fs .'
+                    sh 'trivy fs . > trivyfile.html'
                 }
             }
         }
         stage ('Building image') {
             steps {
                 script{
-                withDockerRegistry(credentialsId: 'DOcker-Login', url: 'https://hub.docker.com') {
+                withDockerRegistry(credentialsId: 'DOcker-Login', toolName: 'docker') {
                     docker_image = docker.build "${IMAGE_NAME}"
                 }
-                withDockerRegistry(credentialsId: 'DOcker-Login', url: 'https://hub.docker.com') {
+                withDockerRegistry(credentialsId: 'DOcker-Login', toolName: 'docker') {
                     docker_image.push("${IMAGE_TAG}")
                     docker_image.push("${latest}")                    
                     }
                 }    
+            }
+        }
+        stage('TRIVY Image SCAN'){
+            steps{
+                script{
+                    sh 'trivy image  . > trivyimage.html'
+                }
             }
         }
     }
