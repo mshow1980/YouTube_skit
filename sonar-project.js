@@ -6,7 +6,7 @@ sonarqubeScanner({
 	    'sonar.projectDescription': 'This is a Node JS application',
 	    'sonar.projectName': 'YouTube-Skit',
 	    'sonar.projectKey':'YouTube-Skit',
-	    'sonar.login': 'sqp_5276b0a69195eca3a042ed38899395f93f67a298',
+	    'sonar.login': 'sqa_d413305d0da8b2f39a3d147c358d03691d6b75fd',
 	    //'sonar.login': 'YWRtaW4=',
 	    //'sonar.password': 'Q29udHJvbDEw',
             'sonar.projectVersion':'1.0',
