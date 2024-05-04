@@ -76,7 +76,7 @@ pipeline {
         stage('TRIVY Image SCAN'){
             steps{
                 script{
-                    sh 'trivy image ${IMAGE_NAME} '
+                    sh 'trivy image ("${IMAGE_NAME}") '
                 }
             }
         }
