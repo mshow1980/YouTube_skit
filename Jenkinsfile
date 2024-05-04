@@ -8,7 +8,6 @@ pipeline {
         SCANNER_HOME = tool 'sonar-scanner'
         DOCKER_USERNAME = 'mshow1980'
         APP_NAME = 'YouTube_skit'
-        DOCKER_HOME = tool 'docker'
         IMAGE_NAME = "${ DOCKER_USERNAME}"+"/"+"${APP_NAME}"
         RELEASE = "1.0"
         IMAGE_TAG = "${RELEASE}"+"${BUILD_NUMBER}"
@@ -64,7 +63,7 @@ pipeline {
         }
         stage ('Building image') {
             steps {
-                withDockerRegistry(credentialsId: 'DOcker-Login', "${DOCKER_HOME}") {
+                withDockerRegistry(credentialsId: 'DOcker-Login', url: 'https://hub.docker.com') {
                 sh"""  
                     docker_image = docker.build "${IMAGE_NAME}"
                     docker_tag = docker_image("${ IMAGE_TAG}")
