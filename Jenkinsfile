@@ -61,8 +61,8 @@ pipeline {
                     sh 'trivy fs . > trivyfile.html'
                 }
             }
-*/       }        
-        stage ('Building  Push Image') {
+       }        
+*/        stage ('Building  Push Image') {
             steps {
                 script{
                 withDockerRegistry(credentialsId: 'DOcker-Login', toolName: 'docker') {
