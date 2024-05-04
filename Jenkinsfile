@@ -38,8 +38,10 @@ pipeline {
             }
         stage('SOnar Quality-gate'){
             steps{
+                withSonarQubeEnv(credentialsId: 'SOnar-Token') {
                 script{
                     waitForQualityGate abortPipeline: false, credentialsId: 'SOnar-Token'
+                    }
                 }
             }
         }
