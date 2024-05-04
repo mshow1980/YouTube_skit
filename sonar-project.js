@@ -1,14 +1,14 @@
 const sonarqubeScanner = require('sonarqube-scanner');
 
 sonarqubeScanner({
-  serverUrl: 'http://54.90.216.165:9000//',
+  serverUrl: 'http://44.197.186.161:9000/',
        options : {
 	    'sonar.projectDescription': 'This is a Node JS application',
 	    'sonar.projectName': 'YouTube-Skit',
 	    'sonar.projectKey':'YouTube-Skit',
-	    'sonar.login': 'sqa_d413305d0da8b2f39a3d147c358d03691d6b75fd',
-	    //'sonar.login': 'YWRtaW4=',
-	    //'sonar.password': 'Q29udHJvbDEw',
+	    'sonar.login': '',
+	    'sonar.login': 'YWRtaW4=',
+	    'sonar.password': 'Q29udHJvbDEw',
             'sonar.projectVersion':'1.0',
 	    'sonar.language':'js',
             'sonar.sourceEncoding':'UTF-8',
