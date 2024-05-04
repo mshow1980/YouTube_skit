@@ -11,7 +11,7 @@ pipeline {
         APP_NAME = 'YouTube_skit'
         IMAGE_NAME = "${ DOCKER_USERNAME}"+"/"+"${APP_NAME}"
         RELEASE = "1.0"
-        IMAGE_TAG = "${RELEASE}"-"${BUILD_NUMBER}"
+        IMAGE_TAG = "${RELEASE}"+"${BUILD_NUMBER}"
 
     }
     stages {
