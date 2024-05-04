@@ -32,8 +32,8 @@ pipeline {
                     sh'npm install'
                 }
             }
-        }
-        //stage ('Sonarqube analysis'){
+        }       
+/*        stage ('Sonarqube analysis'){
             steps {
                 script {
                     sh """
@@ -55,13 +55,13 @@ pipeline {
                 }
             }
         }
-        //stage('TRIVY FS SCAN'){
+        stage('TRIVY FS SCAN'){
             steps{
                 script{
                     sh 'trivy fs . > trivyfile.html'
                 }
             }
-        //}
+*/       }        
         stage ('Building  Push Image') {
             steps {
                 script{
@@ -87,5 +87,5 @@ pipeline {
                 }
             }
         }
-    //}
-//}
+    }
+}
