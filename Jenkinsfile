@@ -29,19 +29,19 @@ pipeline {
         stage ('Sonarqube analysis'){
             steps {
                 script {
+                    withSonarQubeEnv(credentialsId: 'SOnar-Token') {
                     sh """
                     npm install sonar-scanner
                     npm run sonar 
                     """
-                }
+                        }
+                    }
                 }
             }
         stage('SOnar Quality-gate'){
             steps{
-                withSonarQubeEnv(credentialsId: 'SOnar-Token') {
                 script{
                     waitForQualityGate abortPipeline: false, credentialsId: 'SOnar-Token'
-                    }
                 }
             }
         }
