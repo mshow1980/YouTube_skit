@@ -8,7 +8,7 @@ pipeline {
         SCANNER_HOME = tool 'sonar-scanner'
         DOCKER_USERNAME = 'mshow1980'
         APP_NAME = 'YouTube_skit'
-        DOCKER_HOME =toolName: 'docker'
+        DOCKER_HOME = tool 'docker'
         IMAGE_NAME = "${ DOCKER_USERNAME}"+"/"+"${APP_NAME}"
         RELEASE = "1.0"
         IMAGE_TAG = "${RELEASE}"+"${BUILD_NUMBER}"
