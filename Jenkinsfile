@@ -31,6 +31,7 @@ pipeline {
                 script {
                     sh " npm run sonar "
                 }
+                }
             }
         stage('SOnar Quality-gate'){
             steps{
