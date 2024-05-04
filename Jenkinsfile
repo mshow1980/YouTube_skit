@@ -33,7 +33,7 @@ pipeline {
                 }
             }
         }       
-/*        stage ('Sonarqube analysis'){
+        stage ('Sonarqube analysis'){
             steps {
                 script {
                     sh """
@@ -43,7 +43,7 @@ pipeline {
                     }
                 }
             }
-        //stage ('OWASP Dependency-Check Vulnerabilities') {
+        stage ('OWASP Dependency-Check Vulnerabilities') {
             steps {
                 script{
                 dependencyCheck additionalArguments: ''' 
@@ -61,8 +61,8 @@ pipeline {
                     sh 'trivy fs . > trivyfile.html'
                 }
             }
-       }        
-*/        stage ('Building  Push Image') {
+        }        
+        stage ('Building  Push Image') {
             steps {
                 script{
                 withDockerRegistry(credentialsId: 'DOcker-Login', toolName: 'docker') {
@@ -83,6 +83,7 @@ pipeline {
                 script {
                     sh """
                     docker rmi ${IMAGE_NAME}
+                    docker rmi ${IMAGE_NAME}:("latest")
                     """
                 }
             }
