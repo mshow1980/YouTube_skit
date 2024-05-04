@@ -3,9 +3,16 @@ pipeline {
     tools {
         nodejs 'node16'
         jdk 'jdk17'
+        docker 'docker'
     }
     environment {
         SCANNER_HOME = tool 'sonar-scanner'
+        DOCKER_USERNAME = 'mshow1980'
+        APP_NAME = 'YouTube_skit'
+        IMAGE_NAME = "${ DOCKER_USERNAME}"+"/"+"${APP_NAME}"
+        RELEASE = "1.0"
+        IMAGE_TAG = "${RELEASE}"-"${BUILD_NUMBER}"
+
     }
     stages {
         stage('CleanWS') {
@@ -51,7 +58,18 @@ pipeline {
         stage('TRIVY FS SCAN'){
             steps{
                 script{
-                    sh “trivy fs .” 
+                    sh “ trivy fs . ” 
+                }
+            }
+        }
+        stage ('Building image') {
+            steps {
+                withDockerRegistry(credentialsId: 'DOcker-Login', toolName: 'docker') {
+                sh"""  
+                    docker_image = docker.build "${IMAGE_NAME}"
+                    docker_tag = docker_image("${ IMAGE_TAG}")
+                    
+                    """
                 }
             }
         }
