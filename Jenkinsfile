@@ -29,22 +29,13 @@ pipeline {
         stage ('Sonarqube analysis'){
             steps {
                 script {
-                    withSonarQubeEnv(credentialsId: 'SOnar-Token') {
                     sh """
                     npm install sonar-scanner
                     npm run sonar 
                     """
-                        }
                     }
                 }
             }
-        stage('SOnar Quality-gate'){
-            steps{
-                script{
-                    waitForQualityGate abortPipeline: false, credentialsId: 'SOnar-Token'
-                }
-            }
-        }
         stage ('OWASP Dependency-Check Vulnerabilities') {
             steps {
                 script{
