@@ -7,7 +7,7 @@ pipeline {
     environment {
         SCANNER_HOME = tool 'sonar-scanner'
         DOCKER_USERNAME = 'mshow1980'
-        APP_NAME = 'YouTube_skit'
+        APP_NAME = 'youtube_skit'
         IMAGE_NAME = "${ DOCKER_USERNAME}"+"/"+"${APP_NAME}"
         RELEASE = "1.0"
         IMAGE_TAG = "${RELEASE}"+"${BUILD_NUMBER}"
