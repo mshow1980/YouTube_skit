@@ -62,15 +62,13 @@ pipeline {
                 }
             }
         }
-        stage ('Building image') {
+        stage ('Building  Push Image') {
             steps {
                 script{
                 withDockerRegistry(credentialsId: 'DOcker-Login', toolName: 'docker') {
                     docker_image = docker.build "${IMAGE_NAME}"
-                }
-                withDockerRegistry(credentialsId: 'DOcker-Login', toolName: 'docker') {
                     docker_image.push("${IMAGE_TAG}")
-                    docker_image.push("${latest}")                    
+                    docker_image.push("${latest}") 
                     }
                 }    
             }
@@ -78,7 +76,7 @@ pipeline {
         stage('TRIVY Image SCAN'){
             steps{
                 script{
-                    sh 'trivy image  . > trivyimage.html'
+                    sh 'trivy image docker_image . > trivyimage.html'
                 }
             }
         }
