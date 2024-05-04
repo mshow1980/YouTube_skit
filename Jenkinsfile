@@ -33,8 +33,8 @@ pipeline {
                 }
             }
         }
-        stage ('Sonarqube analysis'){
-            //steps {
+        //stage ('Sonarqube analysis'){
+            steps {
                 script {
                     sh """
                     npm install sonar-scanner
@@ -43,8 +43,8 @@ pipeline {
                     }
                 }
             }
-        stage ('OWASP Dependency-Check Vulnerabilities') {
-            //steps {
+        //stage ('OWASP Dependency-Check Vulnerabilities') {
+            steps {
                 script{
                 dependencyCheck additionalArguments: ''' 
                     -o "./" 
@@ -55,8 +55,8 @@ pipeline {
                 }
             }
         }
-        stage('TRIVY FS SCAN'){
-            //steps{
+        //stage('TRIVY FS SCAN'){
+            steps{
                 script{
                     sh 'trivy fs . > trivyfile.html'
                 }
