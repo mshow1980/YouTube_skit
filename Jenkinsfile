@@ -76,7 +76,7 @@ pipeline {
         stage('TRIVY Image SCAN'){
             steps{
                 script{
-                    sh 'trivy image -s mshow1980/youtube_skit:latest '
+                    sh 'trivy image --severity HIGH,CRITICAL mshow1980/youtube_skit:latest '
                 }
             }
         }
