@@ -21,13 +21,17 @@ pipeline {
         stage('installing Dependencies') {
             steps {
                 script{
+
                     sh'npm install'
                 }
             }
         }
         stage ('Sonarqube analysis'){
             steps {
+                script {
+                    withSonarQubeEnv(credentialsId: 'sonar-scanner') {}
                     sh " npm run sonar "
+                    }
                 }
             }
         stage('SOnar Quality-gate'){
