@@ -12,7 +12,6 @@ pipeline {
         RELEASE = "1.0"
         IMAGE_TAG = "${RELEASE}"+"${BUILD_NUMBER}"
         REGISTRY_CREDS = 'DOcker-Login'
-
     }
     stages {
         stage('CleanWS') {
@@ -23,9 +22,9 @@ pipeline {
         stage('Checkout SCM') {
             steps {
                 checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/mshow1980/YouTube_skit.git']])
+                }
             }
         }
-    }
         stage('installing Dependencies') {
             steps {
                 script{
@@ -40,9 +39,9 @@ pipeline {
                     npm install sonar-scanner
                     npm run sonar 
                     """
-                    }
                 }
             }
+        }
         stage ('OWASP Dependency-Check Vulnerabilities') {
             steps {
                 script{
