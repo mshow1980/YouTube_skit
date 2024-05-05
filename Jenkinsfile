@@ -88,6 +88,7 @@ pipeline {
                     }
                 }  
             }
+            }
 */        post {
             always {
                 emailext attachLog: true, 
@@ -97,7 +98,6 @@ pipeline {
                 "URL: ${env.BUILD_URL}<br/>" ,
                 subject: 'Project Build Status',
                 to: ' scionventureslls@gmail.com'
-            }
         }
     }
 }
