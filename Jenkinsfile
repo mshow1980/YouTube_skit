@@ -75,7 +75,6 @@ pipeline {
             steps{
                     sh "trivy --timeout 20m image mshow1980/youtube_skit:latest > trivyimage.txt "
                 }
-            }
         post{
             always{
                 slackSend channel: 'automation-group', 
@@ -103,6 +102,7 @@ pipeline {
                 attachmentsPattern: 'trivyimage.txt,trivyfile.txt', 
                 body: '"Please go to ${BUILD_URL} and verify the build"', 
                 subject: '"Job \'${JOB_NAME}\' (${BUILD_NUMBER}) is waiting for input",', 
-                to: 'scionventureslls@gmail.com' 
+                to: 'scionventureslls@gmail.com'
+            }
     }
 }
