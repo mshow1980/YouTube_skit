@@ -26,7 +26,7 @@ pipeline {
             }
         }
     }
-/*        stage('installing Dependencies') {
+        stage('installing Dependencies') {
             steps {
                 script{
                     sh'npm install'
@@ -87,10 +87,9 @@ pipeline {
                     """
                         }
                     }
-                }  
-            }
-            
-*/        post {
+                }
+            }      
+        post {
             always {
                 emailext attachLog: true, 
                 attachmentsPattern: 'trivyimage.txt, trivyfile.txt', 
@@ -99,4 +98,3 @@ pipeline {
                 to: 'scionventureslls@gmail.com'
         }
     }
-}
