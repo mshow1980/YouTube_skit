@@ -22,7 +22,6 @@ pipeline {
         stage('Checkout SCM') {
             steps {
                 checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/mshow1980/YouTube_skit.git']])
-                }
             }
         }
         stage('installing Dependencies') {
@@ -85,9 +84,10 @@ pipeline {
                     docker rmi ${IMAGE_NAME}
                     docker rmi ${IMAGE_NAME}:latest
                     """
-                        }
                     }
-                }  
+                }
+            }
+        }
         post {
             always {
                 emailext attachLog: true, 
