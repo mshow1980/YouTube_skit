@@ -7,11 +7,11 @@ pipeline {
     environment {
         SCANNER_HOME = tool 'sonar-scanner'
         DOCKER_USERNAME = 'mshow1980'
-        APP_NAME = 'youtube_skit'
+        APP_NAME = 'youtube_skitto'
         IMAGE_NAME = "${ DOCKER_USERNAME}"+"/"+"${APP_NAME}"
-        RELEASE = "1.0"
+        RELEASE = "2.0"
         IMAGE_TAG = "${RELEASE}"+"${BUILD_NUMBER}"
-        REGISTRY_CREDS = 'DOcker-Login'
+        REGISTRY_CREDS = 'Docker-Login'
     }
     stages {
         stage('CleanWS') {
@@ -63,7 +63,7 @@ pipeline {
         stage ('Building  Push Image') {
             steps {
                 script{
-                withDockerRegistry(credentialsId: 'DOcker-Login', toolName: 'docker') {
+                withDockerRegistry(credentialsId: 'Docker-Login', toolName: 'docker') {
                     docker_image = docker.build "${IMAGE_NAME}"
                     docker_image.push("${IMAGE_TAG}")
                     docker_image.push("latest")
@@ -73,15 +73,15 @@ pipeline {
         }
         stage("TRIVY Image SCAN"){
             steps{
-                    sh "trivy --timeout 20m image mshow1980/youtube_skit:latest > trivyimage.txt "
+                    sh "trivy --timeout 10m image mshow1980/youtube_skit:latest > trivyimage.txt "
             }
         post{
             always{
                 slackSend channel: 'automation-group', 
                 color: 'Blue', 
-                message: '"started ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"', 
+                message: '"started ${JOB_NAME} ${BUILD_NUMBER} (<${BUILD_URL}|Open>)"', 
                 teamDomain: 'scionventuresllc', 
-                tokenCredentialId: 'Slack-Token'
+                tokenCredentialId: 'Slack-login'
                 }
             }
         }
