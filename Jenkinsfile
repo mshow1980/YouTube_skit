@@ -12,7 +12,6 @@ pipeline {
         RELEASE = "1.0"
         IMAGE_TAG = "${RELEASE}"+"${BUILD_NUMBER}"
         REGISTRY_CREDS = 'DOcker-Login'
-
     }
     stages {
         stage('CleanWS') {
@@ -26,16 +25,16 @@ pipeline {
             }
         }
     }
-        stage('installing Dependencies') {
-            steps {
-                script{
+    stage('installing Dependencies') {
+        steps {
+            script{
                     sh'npm install'
                 }
             }
         }       
-        stage ('Sonarqube analysis'){
-            steps {
-                script {
+    stage ('Sonarqube analysis'){
+        steps {
+            script {
                     sh """
                     npm install sonar-scanner
                     npm run sonar 
@@ -43,9 +42,9 @@ pipeline {
                     }
                 }
             }
-        stage ('OWASP Dependency-Check Vulnerabilities') {
-            steps {
-                script{
+    stage ('OWASP Dependency-Check Vulnerabilities') {
+        steps {
+            script{
                 dependencyCheck additionalArguments: ''' 
                     -o "./" 
                     -s "./"
@@ -55,16 +54,16 @@ pipeline {
                 }
             }
         }
-        stage('TRIVY FS SCAN'){
-            steps{
-                script{
+    stage('TRIVY FS SCAN'){
+        steps{
+            script{
                     sh 'trivy fs . > trivyfile.txt'
                 }
             }
         }        
-        stage ('Building  Push Image') {
-            steps {
-                script{
+    stage ('Building  Push Image') {
+        steps {
+            script{
                 withDockerRegistry(credentialsId: 'DOcker-Login', toolName: 'docker') {
                     docker_image = docker.build "${IMAGE_NAME}"
                     docker_image.push("${IMAGE_TAG}")
@@ -73,14 +72,14 @@ pipeline {
                 }    
             }
         }
-        stage("TRIVY Image SCAN"){
-            steps{
-                    sh "trivy image mshow1980/youtube_skit:latest > trivyimage.txt "
+    stage("TRIVY Image SCAN"){
+        steps{
+                sh "trivy image mshow1980/youtube_skit:latest > trivyimage.txt "
                 }
             }
-        stage ('Delete docker image') {
-            steps {
-                script {
+    stage ('Delete docker image') {
+        steps {
+            script {
                     sh """
                     docker rmi ${IMAGE_NAME}
                     docker rmi ${IMAGE_NAME}:latest
@@ -89,8 +88,8 @@ pipeline {
                     }
                 }
             }      
-        post {
-            always {
+    post {
+        always {
                 emailext attachLog: true, 
                 attachmentsPattern: 'trivyimage.txt, trivyfile.txt', 
                 body: '"Please go to ${BUILD_URL} and verify the build"', 
