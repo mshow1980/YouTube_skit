@@ -25,7 +25,7 @@ pipeline {
                 checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/mshow1980/YouTube_skit.git']])
             }
         }
-        stage('installing Dependencies') {
+/*        stage('installing Dependencies') {
             steps {
                 script{
 
@@ -85,18 +85,18 @@ pipeline {
                     docker rmi ${IMAGE_NAME}
                     docker rmi ${IMAGE_NAME}:latest
                     """
+                        }
                     }
-            }
-        post {
+                }
+*/        post {
             always {
-                emailext attachLog: true,
-                    subject: "'${currentBuild.result}'" ,
-                    body:   "project: ${env.JOB_NAME}<br/>" +
-                            "BUILD NUMBER: ${env.BUILD_NUMBER}<br/>" +
-                            "URL: ${env.BUILD_URL}<br/>" ,
-                    to: 'scionventureslls@gmail.com'
-                    attachmentsPattern: 'trivyimage.txt,trivyfile.txt'
-        }
+                emailext attachLog: true, 
+                attachmentsPattern: 'trivyimage.txt, trivyfile.txt', 
+                body: '${currentBuild.result}' , 
+                "BUILD NUMBER: ${env.BUILD_NUMBER}<br/>" + 
+                "URL: ${env.BUILD_URL}<br/>" ,
+                subject: 'Project Build Status',
+                to: ' scionventureslls@gmail.com'
             }
         }
     }
