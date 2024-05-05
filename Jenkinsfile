@@ -85,9 +85,8 @@ pipeline {
                     docker rmi ${IMAGE_NAME}
                     docker rmi ${IMAGE_NAME}:latest
                     """
-                }
+                    }
             }
-        }
         post {
             always {
                 emailext attachLog: true,
@@ -97,6 +96,7 @@ pipeline {
                             "URL: ${env.BUILD_URL}<br/>" ,
                     to: 'scionventureslls@gmail.com'
                     attachmentsPattern: 'trivy-image.txt,trivyfile.txt'
+        }
             }
         }
     }
