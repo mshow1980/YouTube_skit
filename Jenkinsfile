@@ -58,7 +58,7 @@ pipeline {
         stage('TRIVY FS SCAN'){
             steps{
                 script{
-                    sh 'trivy fs . > trivyfile.html'
+                    sh 'trivy fs . > trivyfile.txt'
                 }
             }
         }        
@@ -83,9 +83,20 @@ pipeline {
                 script {
                     sh """
                     docker rmi ${IMAGE_NAME}
-                    docker rmi ${IMAGE_NAME}:("latest")
+                    docker rmi ${IMAGE_NAME}:latest
                     """
                 }
+            }
+        }
+        post {
+            always {
+                emailext attachLog: true,
+                    subject: "'${currentBuild.result}'" ,
+                    body:   "project: ${env.JOB_NAME}<br/>" +
+                            "BUILD NUMBER: ${env.BUILD_NUMBER}<br/>" +
+                            "URL: ${env.BUILD_URL}<br/>" ,
+                    to: 'scionventureslls@gmail.com'
+                    attachmentsPattern: 'trivy-image.txt,trivyfile.txt'
             }
         }
     }
