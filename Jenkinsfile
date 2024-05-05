@@ -25,6 +25,7 @@ pipeline {
                 checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/mshow1980/YouTube_skit.git']])
             }
         }
+    }
 /*        stage('installing Dependencies') {
             steps {
                 script{
@@ -88,7 +89,7 @@ pipeline {
                     }
                 }  
             }
-            }
+            
 */        post {
             always {
                 emailext attachLog: true, 
