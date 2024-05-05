@@ -73,9 +73,18 @@ pipeline {
         }
         stage("TRIVY Image SCAN"){
             steps{
-                    sh "trivy image mshow1980/youtube_skit:latest > trivyimage.txt "
+                    sh "trivy --timeout 20m image mshow1980/youtube_skit:latest > trivyimage.txt "
                 }
             }
+        post{
+            always{
+                slackSend channel: 'automation-group', 
+                color: 'Blue', 
+                message: '"started ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"', 
+                teamDomain: 'scionventuresllc', 
+                tokenCredentialId: 'Slack-Token'
+            }
+        }
         stage ('Delete docker image') {
             steps {
                 script {
@@ -91,9 +100,9 @@ pipeline {
         post {
             always {
                 emailext attachLog: true, 
-                attachmentsPattern: 'trivyimage.txt, trivyfile.txt', 
+                attachmentsPattern: 'trivyimage.txt,trivyfile.txt', 
                 body: '"Please go to ${BUILD_URL} and verify the build"', 
                 subject: '"Job \'${JOB_NAME}\' (${BUILD_NUMBER}) is waiting for input",', 
-                to: 'scionventureslls@gmail.com'
+                to: 'scionventureslls@gmail.com' 
     }
 }
