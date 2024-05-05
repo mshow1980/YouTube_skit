@@ -91,7 +91,6 @@ pipeline {
                     sh """
                     docker rmi ${IMAGE_NAME}
                     """
-                        }
                     }
                 }
             }
@@ -103,5 +102,6 @@ pipeline {
                 body: '"Please go to ${BUILD_URL} and verify the build"', 
                 subject: '"Job \'${JOB_NAME}\' (${BUILD_NUMBER}) is waiting for input",', 
                 to: 'scionventureslls@gmail.com'
-            }
+                }
+        }
     }
