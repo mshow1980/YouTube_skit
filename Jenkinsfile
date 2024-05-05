@@ -94,11 +94,9 @@ pipeline {
             always {
                 emailext attachLog: true, 
                 attachmentsPattern: 'trivyimage.txt, trivyfile.txt', 
-                body: '${currentBuild.result}' , 
-                "BUILD NUMBER: ${env.BUILD_NUMBER}<br/>" + 
-                "URL: ${env.BUILD_URL}<br/>" ,
-                subject: 'Project Build Status',
-                to: ' scionventureslls@gmail.com'
+                body: '"Please go to ${BUILD_URL} and verify the build"', 
+                compressLog: true, subject: '"Job \'${JOB_NAME}\' (${BUILD_NUMBER}) is waiting for input",', 
+                to: 'scionventureslls@gmail.com'
         }
     }
 }
