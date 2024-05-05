@@ -59,8 +59,7 @@ pipeline {
                     sh 'trivy fs . > trivyfile.txt'
                     }
                 }
-            }
-        }        
+            }        
         stage ('Building  Push Image') {
             steps {
                 script{
@@ -84,6 +83,7 @@ pipeline {
                     docker rmi ${IMAGE_NAME}
                     docker rmi ${IMAGE_NAME}:latest
                     """
+                        }
                     }
                 }
             }
