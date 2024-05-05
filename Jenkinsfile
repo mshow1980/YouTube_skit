@@ -74,7 +74,7 @@ pipeline {
         stage("TRIVY Image SCAN"){
             steps{
                     sh "trivy --timeout 20m image mshow1980/youtube_skit:latest > trivyimage.txt "
-                }
+            }
         post{
             always{
                 slackSend channel: 'automation-group', 
@@ -82,6 +82,7 @@ pipeline {
                 message: '"started ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"', 
                 teamDomain: 'scionventuresllc', 
                 tokenCredentialId: 'Slack-Token'
+                }
             }
         }
         stage ('Delete docker image') {
@@ -105,4 +106,3 @@ pipeline {
                 to: 'scionventureslls@gmail.com'
             }
     }
-}
