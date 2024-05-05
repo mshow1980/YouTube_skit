@@ -75,7 +75,7 @@ pipeline {
         }
         stage("TRIVY Image SCAN"){
             steps{
-                    sh "trivy image mshow1980/youtube_skit:latest > trivy-image.txt "
+                    sh "trivy image mshow1980/youtube_skit:latest > trivyimage.txt "
                 }
             }
         stage ('Delete docker image') {
@@ -95,7 +95,7 @@ pipeline {
                             "BUILD NUMBER: ${env.BUILD_NUMBER}<br/>" +
                             "URL: ${env.BUILD_URL}<br/>" ,
                     to: 'scionventureslls@gmail.com'
-                    attachmentsPattern: 'trivy-image.txt,trivyfile.txt'
+                    attachmentsPattern: 'trivyimage.txt,trivyfile.txt'
         }
             }
         }
