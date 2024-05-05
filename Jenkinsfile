@@ -90,7 +90,6 @@ pipeline {
                 script {
                     sh """
                     docker rmi ${IMAGE_NAME}
-                    docker rmi ${IMAGE_NAME}:latest
                     """
                         }
                     }
