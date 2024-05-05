@@ -28,7 +28,6 @@ pipeline {
 /*        stage('installing Dependencies') {
             steps {
                 script{
-
                     sh'npm install'
                 }
             }
@@ -87,10 +86,10 @@ pipeline {
                     """
                         }
                     }
-                }
-*/      stage {
-            post {
-                always {
+                }  
+            }
+*/        post {
+            always {
                 emailext attachLog: true, 
                 attachmentsPattern: 'trivyimage.txt, trivyfile.txt', 
                 body: '${currentBuild.result}' , 
@@ -98,8 +97,6 @@ pipeline {
                 "URL: ${env.BUILD_URL}<br/>" ,
                 subject: 'Project Build Status',
                 to: ' scionventureslls@gmail.com'
-                }
-            }
         }
     }
 }
